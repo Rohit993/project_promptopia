@@ -17,19 +17,16 @@ const handler = NextAuth({
       return session;
     },
     async signIn({ profile }) {
-      debugger;
       try {
         await connectToDB();
-        console.log("calling db");
-
         //check if user is already connected
         const userExist = await User.findOne({ email: profile.email });
         //if not, create a new user
         if (!userExist) {
           User.create({
-            email: profile?.email,
-            username: profile?.name.replace(" ", "").toLowerCase(),
-            image: profile?.picture,
+            email: profile.email,
+            username: profile.name.replace(" ", "").toLowerCase(),
+            image: profile.picture,
           });
         }
         return true;
