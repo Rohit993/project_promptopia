@@ -1,9 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Form } from "@components/Form";
 
-const EditPrompt = () => {
+const EditPromptComponent = () => {
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
   const router = useRouter();
@@ -56,6 +56,14 @@ const EditPrompt = () => {
       submitted={submitted}
       handleSubmit={updatePrompt}
     />
+  );
+};
+
+const EditPrompt = () => {
+  return (
+    <Suspense>
+      <EditPromptComponent />
+    </Suspense>
   );
 };
 
